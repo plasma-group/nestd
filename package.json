@@ -1,0 +1,23 @@
+{
+  "name": "nesd",
+  "version": "1.0.0",
+  "description": "`nesd` is a simplified framework for building Node.js applications. It's heavily based on `Nest.js`.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "prettier": "^1.16.4",
+    "reflect-metadata": "^0.1.13",
+    "tslint": "^5.13.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.3.3333"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
