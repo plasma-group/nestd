@@ -242,7 +242,7 @@ export class DependencyScanner {
       const { providers } = modules.get(moduleKey)
       const { instance } = providers.get(providerKey)
 
-      applyProvidersMap[type][instance]
+      applyProvidersMap[type](instance)
     }
   }
 

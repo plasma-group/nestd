@@ -53,3 +53,5 @@ export const INVALID_MODULE_MESSAGE = (text, scope: string) =>
   `Nesd cannot create the module instance. Often, this is because of a circular dependency between modules. Use forwardRef() to avoid it. (Read more https://docs.nestjs.com/fundamentals/circular-dependency.) Scope [${scope}]`
 export const INVALID_CLASS_MESSAGE = (text, value: any) =>
   `ModuleRef cannot instantiate class (${value} is not constructable).`
+
+export const UNHANDLED_RUNTIME_EXCEPTION = `Unhandled Runtime Exception.`;
