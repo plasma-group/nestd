@@ -2,5 +2,7 @@ export * from './decorators'
 export {
   INesdApplication,
   ForwardReference,
-  DynamicModule
+  DynamicModule,
+  PipeTransform,
+  NesdInterceptor
 } from './interfaces'

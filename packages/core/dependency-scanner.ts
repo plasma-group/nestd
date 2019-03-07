@@ -4,12 +4,20 @@ import { ForwardReference, DynamicModule } from '../common'
 import { Type } from '../common/interfaces/type.interface'
 import { METADATA, PROVIDERS_METADATA, INTERCEPTORS_METADATA, PIPES_METADATA } from '../common/constants'
 import { Injectable } from '../common/interfaces';
-import { isUndefined } from 'util';
-import { isNil } from '../common/utils/shared.utils';
+import { isNil, isUndefined } from '../common/utils/shared.utils';
 import { randomString } from '../common/utils/random-string.util';
 import { APP_INTERCEPTOR, APP_PIPE } from './constants';
+import { CircularDependencyException } from './errors/exceptions/circular-dependency.exception';
+import { MetadataScanner } from './metadata-scanner';
+
+interface ApplicationProviderWrapper {
+  moduleKey: string
+  providerKey: string
+  type: string
+}
 
 export class DependencyScanner {
+  private readonly applicationProvidersApplyMap: ApplicationProviderWrapper[] = []
   constructor(
     private readonly container: NesdContainer,
     private readonly metadataScanner: MetadataScanner,
@@ -39,7 +47,7 @@ export class DependencyScanner {
       : [
         ...this.reflectMetadata(
           (module as DynamicModule).module,
-          METADATA.modules
+          METADATA.MODULES
         ),
         ...((module as DynamicModule).imports || []),
       ]
@@ -84,11 +92,11 @@ export class DependencyScanner {
       ...this.reflectMetadata(module, METADATA.MODULES),
       ...this.container.getDynamicMetadataByToken(
         token,
-        METADATA.MODULES
+        METADATA.MODULES as 'module',
       ),
       ...this.container.getDynamicMetadataByToken(
         token,
-        METADATA.IMPORTS
+        METADATA.IMPORTS as 'imports',
       ),
     ]
 
@@ -105,7 +113,7 @@ export class DependencyScanner {
       ...this.reflectMetadata(module, METADATA.PROVIDERS),
       ...this.container.getDynamicMetadataByToken(
         token,
-        METADATA.PROVIDERS
+        METADATA.PROVIDERS as 'providers',
       ),
     ]
 
@@ -147,7 +155,7 @@ export class DependencyScanner {
       ...this.reflectMetadata(module, METADATA.EXPORTS),
       ...this.container.getDynamicMetadataByToken(
         token,
-        METADATA.EXPORTS
+        METADATA.EXPORTS as 'exports',
       ),
     ]
 
@@ -222,19 +230,21 @@ export class DependencyScanner {
   public storeProvider(
     provider: any,
     token: string,
-  ): Promise<void> {
+  ): void {
     const isCustomProvider = provider && !isNil(provider.provide)
     if (!isCustomProvider) {
-      return this.container.addProvider(provider, token)
+      this.container.addProvider(provider, token)
+      return
     }
 
     const applyProvidersMap = this.getApplyProvidersMap()
     const providersKeys = Object.keys(applyProvidersMap)
     const type = provider.provide
-
     if (!providersKeys.includes(type)) {
-      return this.container.addProvider(provider, token)
+      this.container.addProvider(provider, token)
+      return
     }
+
     const providerToken = randomString()
     this.applicationProvidersApplyMap.push({
       type,

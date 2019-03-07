@@ -7,12 +7,15 @@
     "test": "test"
   },
   "dependencies": {
+    "iterare": "^1.1.2",
     "prettier": "^1.16.4",
     "reflect-metadata": "^0.1.13",
+    "rxjs": "^6.4.0",
     "tslint": "^5.13.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.3.3333",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {},
   "scripts": {
