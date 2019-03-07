@@ -1,13 +1,45 @@
 import { AppConfig } from '../app-config'
 import { Type } from '../../common/interfaces/type.interface';
-import { DynamicModule, Module } from '../../common';
+import { DynamicModule } from '../../common';
 import { Module } from './module';
+import { AppRefHost } from '../helpers/app-ref-host';
+import { InvalidModuleException } from '../errors/exceptions/invalid-module.exception';
+import { UnknownModuleException } from '../errors/exceptions/unknown-module.exception';
+import { CircularDependencyException } from '../errors/exceptions/circular-dependency.exception';
+import { ModuleCompiler } from './compiler';
+import { GLOBAL_MODULE_METADATA } from '../../common/constants';
 
 export class NesdContainer {
+  private readonly globalModules = new Set<Module>()
+  private readonly moduleCompiler = new ModuleCompiler()
+  private readonly dynamicModulesMetadata = new Map<
+    string,
+    Partial<DynamicModule>
+  >()
+  private readonly modules = new Map<
+    string,
+    Module
+  >()
+  private readonly appRefHost = new AppRefHost()
+  private appRef: any
+
   constructor(private readonly config: AppConfig) {}
 
   get appConfig(): AppConfig {
     return this.config
+  }
+  
+  public setAppRef(appRef: any): void {
+    this.appRef = appRef
+    
+    if (!this.appRefHost) {
+      return
+    }
+    this.appRefHost.appRef = appRef
+  }
+
+  public getAppRef(): void {
+    return this.appRef
   }
 
   public async addModule(
@@ -46,8 +78,7 @@ export class NesdContainer {
     }
     this.dynamicModulesMetadata.set(token, dynamicModuleMetadata)
 
-    const { modules, import } = dynamicModuleMetadata
-    this.addDynamicModules(modules, scope)
+    const { imports } = dynamicModuleMetadata
     this.addDynamicModules(imports, scope)
   }
 
@@ -67,7 +98,11 @@ export class NesdContainer {
     return !!Reflect.getMetadata(GLOBAL_MODULE_METADATA, metatype)
   }
 
-  public getModules(): ModulesContainer {
+  public addGlobalModule(module: Module): void {
+    this.globalModules.add(module)
+  }
+
+  public getModules(): Map<string, Module> {
     return this.modules
   }
 
@@ -87,7 +122,7 @@ export class NesdContainer {
       relatedModule,
       scope,
     )
-    const related = this.getModules.get(relatedModuleToken)
+    const related = this.modules.get(relatedModuleToken)
     module.addRelatedModule(related)
   }
 
@@ -124,11 +159,11 @@ export class NesdContainer {
       throw new UnknownModuleException()
     }
     const module = this.modules.get(token)
-    module.addExportedComponent(exported)
+    module.addExportedProvider(exported)
   }
 
   public bindGlobalScope(): void {
-    for (const module of this.modules) {
+    for (const [_, module] of this.modules) {
       this.bindGlobalsToRelatedModules(module)
     }
   }
@@ -156,4 +191,17 @@ export class NesdContainer {
     }
     return []
   }
+}
+
+export interface InstanceWrapper<T> {
+  name: any
+  metatype: Type<T>
+  instance: T
+  isResolved: boolean
+  isPending?: boolean
+  done$: Promise<void>
+  inject?: Type<any>[]
+  isNotMetatype: boolean
+  forwardRef?: boolean
+  async?: boolean
 }

@@ -1,3 +1,4 @@
+export * from './abstract.interface'
 export * from './injectable.interface'
 export * from './nesd-application.interface'
 export * from './modules/forward-reference.interface'
