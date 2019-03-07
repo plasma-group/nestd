@@ -2,7 +2,7 @@ import { NesdContainer } from './injector/container'
 import { AppConfig } from './app-config';
 import { ForwardReference, DynamicModule } from '../common'
 import { Type } from '../common/interfaces/type.interface'
-import { METADATA, PROVIDERS_METADATA, INTERCEPTORS_METADATA, PIPES_METADATA } from '../common/constants'
+import { METADATA, PROVIDERS_METADATA } from '../common/constants'
 import { Injectable } from '../common/interfaces';
 import { isNil, isUndefined } from '../common/utils/shared.utils';
 import { randomString } from '../common/utils/random-string.util';
@@ -120,20 +120,7 @@ export class DependencyScanner {
     for (const provider of providers) {
       this.storeProvider(provider, token)
       this.reflectProviderMetadata(provider, token)
-      this.reflectDynamicMetadata(provider, token)
     }
-  }
-
-  public async reflectDynamicMetadata(
-    obj: Type<Injectable>,
-    token: string,
-  ): Promise<void> {
-    if (!obj || !obj.prototype) {
-      return
-    }
-
-    this.reflectInjectables(obj, token, INTERCEPTORS_METADATA)
-    this.reflectInjectables(obj, token, PIPES_METADATA)
   }
 
   public reflectProviderMetadata(
@@ -161,32 +148,6 @@ export class DependencyScanner {
 
     for (const exported of exports) {
       this.storeExportedComponent(exported, token)
-    }
-  }
-
-  public reflectInjectables(
-    component: Type<Injectable>,
-    token: string,
-    metadataKey: string,
-  ): void {
-    const componentInjectables = this.reflectMetadata(component, metadataKey)
-    const methodInjectables = this.metadataScanner.scanFromPrototype(
-      null,
-      component.prototype,
-      this.reflectKeyMetadata.bind(this, component, metadataKey), 
-    )
-    const flatMethodInjectables = methodInjectables.reduce<any[]>(
-      (a: any[], b) => a.concat(b),
-      [],
-    )
-
-    const mergedInjectables = [
-      ...componentInjectables,
-      ...flatMethodInjectables,
-    ]
-
-    for (const injectable of mergedInjectables) {
-      this.storeInjectable(injectable, token)
     }
   }
 
@@ -260,13 +221,6 @@ export class DependencyScanner {
     )
   }
 
-  public storeInjectable(
-    component: Type<Injectable>,
-    token: string,
-  ): void {
-    this.container.addInjectable(component, token)
-  }
-
   public storeExportedComponent(
     exported: Type<Injectable>,
     token: string,
@@ -285,8 +239,8 @@ export class DependencyScanner {
     const applyProvidersMap = this.getApplyProvidersMap()
     for (const { moduleKey, providerKey, type } of this.applicationProvidersApplyMap) {
       const modules = this.container.getModules()
-      const { components } = modules.get(moduleKey)
-      const { instance } = components.get(providerKey)
+      const { providers } = modules.get(moduleKey)
+      const { instance } = providers.get(providerKey)
 
       applyProvidersMap[type][instance]
     }

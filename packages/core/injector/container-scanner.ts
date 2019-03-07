@@ -27,7 +27,6 @@ export class ContainerScanner {
   ): TResult {
     const dependencies = new Map([
       ...contextModule.providers,
-      ...contextModule.injectables,
     ])
     const name = isFunction(metatypeOrToken)
       ? (metatypeOrToken as Function).name
@@ -57,7 +56,6 @@ export class ContainerScanner {
     this.flatContainer = ([...modules.values()].reduce(
       (current, next) => ({
         providers: merge(current.providers, next.providers),
-        injectables: merge(current.injectables, next.injectables),
       }),
       initialValue
     ) as any) as Partial<Module>

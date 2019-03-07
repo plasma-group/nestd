@@ -8,6 +8,8 @@ import { UnknownModuleException } from '../errors/exceptions/unknown-module.exce
 import { CircularDependencyException } from '../errors/exceptions/circular-dependency.exception';
 import { ModuleCompiler } from './compiler';
 import { GLOBAL_MODULE_METADATA } from '../../common/constants';
+import { ModulesContainer } from './modules-container';
+import { Reflector } from '../services/reflector.service';
 
 export class NesdContainer {
   private readonly globalModules = new Set<Module>()
@@ -16,14 +18,15 @@ export class NesdContainer {
     string,
     Partial<DynamicModule>
   >()
-  private readonly modules = new Map<
-    string,
-    Module
-  >()
+  private readonly reflector = new Reflector()
+  private readonly modules = new ModulesContainer()
   private readonly appRefHost = new AppRefHost()
+  private modulesContainer: ModulesContainer
   private appRef: any
 
-  constructor(private readonly config: AppConfig) {}
+  constructor(
+    private readonly config: AppConfig = void 0,
+  ) {}
 
   get appConfig(): AppConfig {
     return this.config
@@ -102,7 +105,7 @@ export class NesdContainer {
     this.globalModules.add(module)
   }
 
-  public getModules(): Map<string, Module> {
+  public getModules(): ModulesContainer {
     return this.modules
   }
 
@@ -191,6 +194,21 @@ export class NesdContainer {
     }
     return []
   }
+
+  public getReflector(): Reflector {
+    return this.reflector
+  }
+
+  public getAppRefHost(): AppRefHost {
+    return this.appRefHost
+  }
+
+  public getModulesContainer(): ModulesContainer {
+    if (!this.modulesContainer) {
+      this.modulesContainer = this.getModules()
+    }
+    return this.modulesContainer
+  }
 }
 
 export interface InstanceWrapper<T> {
@@ -199,9 +217,9 @@ export interface InstanceWrapper<T> {
   instance: T
   isResolved: boolean
   isPending?: boolean
-  done$: Promise<void>
+  done$?: Promise<void>
   inject?: Type<any>[]
-  isNotMetatype: boolean
+  isNotMetatype?: boolean
   forwardRef?: boolean
   async?: boolean
 }

@@ -1,4 +1,4 @@
-import { NesdContainer } from "./container";
+import { NesdContainer, InstanceWrapper } from "./container";
 import { randomString } from "../../common/utils/random-string.util";
 import { Type } from "../../common/interfaces/type.interface";
 import { RuntimeException } from "../errors/exceptions/runtime.exception";
@@ -9,6 +9,9 @@ import { isNil, isFunction, isUndefined, isString, isSymbol } from "../../common
 import { UnknownExportException } from "../errors/exceptions/unknown-export.exception";
 import { ModuleRef } from "./module-ref";
 import { InvalidClassException } from "../errors/exceptions/invalid-class.exception";
+import { APP_REF } from "./tokens";
+import { Reflector } from "../services/reflector.service";
+import { NestdModule } from "../../common/interfaces/modules/nestd-module.interface";
 
 export interface CustomProvider {
   provide: any
@@ -59,20 +62,16 @@ export class Module {
     return this._providers
   }
 
-  get injectables(): Map<string, InstanceWrapper<Injectable>> {
-    return this._injectables
-  }
-
   get exports(): Set<string | symbol> {
     return this._exports
   }
 
-  get instance(): NesdModule {
+  get instance(): NestdModule {
     if (!this._providers.has(this._metatype.name)) {
       throw new RuntimeException()
     }
     const module = this._providers.get(this._metatype.name)
-    return module.instance as NesdModule
+    return module.instance as NestdModule
   }
 
   get metatype(): Type<any> {
@@ -84,7 +83,6 @@ export class Module {
     this.addModuleRef()
     this.addReflector(container.getReflector())
     this.addAppRef(container.getAppRef())
-    this.addExternalContextCreator(container.getExternalContextCreator())
     this.addModulesContainer(container.getModulesContainer())
     this.addAppRefHost(container.getAppRefHost())
   }
@@ -123,17 +121,6 @@ export class Module {
       metatype: {} as any,
       isResolved: true,
       instance: appRef || {},
-    })
-  }
-
-  public addExternalContextCreator(
-    externalContextCreator: ExternalContextCreator,
-  ): void {
-    this._providers.set(ExternalContextCreator.name, {
-      name: ExternalContextCreator.name,
-      metatype: ExternalContextCreator,
-      isResolved: true,
-      instance: externalContextCreator,
     })
   }
 
