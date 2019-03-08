@@ -216,6 +216,7 @@ export interface InstanceWrapper<T> {
   metatype: Type<T>
   instance: T
   isResolved: boolean
+  isStarted?: boolean
   isPending?: boolean
   done$?: Promise<void>
   inject?: Type<any>[]

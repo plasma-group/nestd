@@ -1,3 +1,3 @@
-export function Injectable(): ClassDecorator {
+export function Service(): ClassDecorator {
   return (target: object) => {}
 }

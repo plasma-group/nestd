@@ -4,5 +4,7 @@ export {
   ForwardReference,
   DynamicModule,
   PipeTransform,
-  NestdInterceptor
+  NestdInterceptor,
+  OnStart,
+  OnStop
 } from './interfaces'

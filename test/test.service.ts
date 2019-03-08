@@ -1,9 +1,9 @@
-import { Injectable } from "../packages/common";
+import { Service } from "../packages/common";
 
-@Injectable()
+@Service()
 export class TestService {
   public test(): void {
-    console.log('Hello!')
+    console.log('Constructor works!')
   }
 }
 

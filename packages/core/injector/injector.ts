@@ -78,7 +78,7 @@ export class Injector {
     if (targetWrapper.isResolved) {
       return
     }
-    const callback = async (instances) => {
+    const callback = async (instances: any[]) => {
       const properties = await this.resolveProperties(wrapper, module, inject)
       const instance = await this.instantiateClass(
         instances,
@@ -103,7 +103,7 @@ export class Injector {
     const optionalDependenciesIds = isNil(inject)
       ? this.reflectOptionalParams(wrapper.metatype)
       : []
-    
+
     let isResolved = true
     const instances = await Promise.all(
       dependencies.map(async (param, index) => {
@@ -117,6 +117,7 @@ export class Injector {
           if (!paramWrapper.isResolved && !paramWrapper.forwardRef) {
             isResolved = false
           }
+          return paramWrapper.instance
         } catch (err) {
           const isOptional = optionalDependenciesIds.includes(index)
           if (!isOptional) {

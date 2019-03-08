@@ -1,5 +1,5 @@
 import * as clc from 'cli-color'
-import { Injectable, Optional } from '../decorators'
+import { Service, Optional } from '../decorators'
 import { NestdEnvironment } from '../enums/nestd-environment.enum'
 import { isObject } from '../utils/shared.utils'
 
@@ -11,7 +11,7 @@ export interface LoggerService {
   warn(message: any, context?: string)
 }
 
-@Injectable()
+@Service()
 export class Logger implements LoggerService {
   private static prevTimestamp?: number
   private static contextEnvironment = NestdEnvironment.RUN

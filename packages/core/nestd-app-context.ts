@@ -83,7 +83,7 @@ export class NestdAppContext implements INestdAppContext {
     
     await Promise.all(
       iterate(providers)
-        .map(([key, { instance }]) => instance)
+        .map(([_, { instance }]) => instance)
         .filter(instance => !isNil(instance))
         .filter(this.hasOnModuleInitHook)
         .map(async instance => (instance as OnModuleInit).onModuleInit())

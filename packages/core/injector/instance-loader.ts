@@ -36,7 +36,7 @@ export class InstanceLoader {
   }
 
   private createPrototypesOfProviders(module: Module): void {
-    for (const [_, wrapper] of module.providers) {
+    for (const wrapper of module.providers.values()) {
       this.injector.loadPrototypeOfInstance<Injectable>(
         wrapper,
         module.providers
