@@ -1,4 +1,4 @@
-export interface INesdApplication {
+export interface INestdApp {
   /**
    * Starts the application.
    */

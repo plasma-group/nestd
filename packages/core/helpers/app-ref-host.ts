@@ -1,8 +1,8 @@
 export class AppRefHost {
   private ref: any
 
-  set appRef(appRef: any) {
-    this.appRef = appRef
+  set appRef(ref: any) {
+    this.ref = ref
   }
 
   get appRef(): any {

@@ -11,7 +11,7 @@ import { GLOBAL_MODULE_METADATA } from '../../common/constants';
 import { ModulesContainer } from './modules-container';
 import { Reflector } from '../services/reflector.service';
 
-export class NesdContainer {
+export class NestdContainer {
   private readonly globalModules = new Set<Module>()
   private readonly moduleCompiler = new ModuleCompiler()
   private readonly dynamicModulesMetadata = new Map<

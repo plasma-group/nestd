@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs'
 import { ExecutionContext } from './execution-context.interface'
 
-export interface NesdInterceptor<T = any, R = any> {
+export interface NestdInterceptor<T = any, R = any> {
   intercept(
     context: ExecutionContext,
     call$: Observable<T>,

@@ -1,4 +1,4 @@
-import { NesdContainer } from "./container";
+import { NestdContainer } from "./container";
 import { Injector } from "./injector";
 import { Module } from "./module";
 import { Type } from "../../common/interfaces/type.interface";
@@ -8,7 +8,7 @@ export abstract class ModuleRef {
   private readonly injector = new Injector()
   private readonly containerScanner: ContainerScanner
 
-  constructor(protected readonly container: NesdContainer) {
+  constructor(protected readonly container: NestdContainer) {
     this.containerScanner = new ContainerScanner(container)
   }
 

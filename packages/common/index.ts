@@ -1,8 +1,8 @@
 export * from './decorators'
 export {
-  INesdApplication,
+  INestdApp,
   ForwardReference,
   DynamicModule,
   PipeTransform,
-  NesdInterceptor
+  NestdInterceptor
 } from './interfaces'

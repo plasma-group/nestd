@@ -1,4 +1,4 @@
-import { NesdContainer, InstanceWrapper } from "./container";
+import { NestdContainer, InstanceWrapper } from "./container";
 import { randomString } from "../../common/utils/random-string.util";
 import { Type } from "../../common/interfaces/type.interface";
 import { RuntimeException } from "../errors/exceptions/runtime.exception";
@@ -40,7 +40,7 @@ export class Module {
   constructor(
     private readonly _metatype: Type<any>,
     private readonly _scope: Type<any>[],
-    private readonly container: NesdContainer,
+    private readonly container: NestdContainer,
   ) {
     this.addCoreInjectables(container)
     this._id = randomString()
@@ -78,7 +78,7 @@ export class Module {
     return this._metatype
   }
 
-  public addCoreInjectables(container: NesdContainer): void {
+  public addCoreInjectables(container: NestdContainer): void {
     this.addModuleAsProvider()
     this.addModuleRef()
     this.addReflector(container.getReflector())

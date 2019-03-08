@@ -1,5 +1,5 @@
 import { Module } from "./module";
-import { NesdContainer, InstanceWrapper } from "./container";
+import { NestdContainer, InstanceWrapper } from "./container";
 import { Type } from "../../common/interfaces/type.interface";
 import { isFunction } from "../../common/utils/shared.utils";
 import { ModulesContainer } from "./modules-container";
@@ -9,7 +9,7 @@ import { Abstract } from "../../common/interfaces";
 export class ContainerScanner {
   private flatContainer: Partial<Module>
 
-  constructor(private readonly container: NesdContainer) {}
+  constructor(private readonly container: NestdContainer) {}
 
   public find<TInput = any, TResult = TInput>(
     typeOrToken: Type<TInput> | Abstract<TInput> | string | symbol,

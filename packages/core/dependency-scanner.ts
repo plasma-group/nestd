@@ -1,4 +1,4 @@
-import { NesdContainer } from './injector/container'
+import { NestdContainer } from './injector/container'
 import { AppConfig } from './app-config';
 import { ForwardReference, DynamicModule } from '../common'
 import { Type } from '../common/interfaces/type.interface'
@@ -19,7 +19,7 @@ interface ApplicationProviderWrapper {
 export class DependencyScanner {
   private readonly applicationProvidersApplyMap: ApplicationProviderWrapper[] = []
   constructor(
-    private readonly container: NesdContainer,
+    private readonly container: NestdContainer,
     private readonly metadataScanner: MetadataScanner,
     private readonly appConfig = new AppConfig(),
   ) {}

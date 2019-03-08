@@ -1,9 +1,9 @@
 import { ModuleMetadata } from '../../interfaces/modules/module-metadata.interface'
-import * as constants from '../../constants'
+import { METADATA } from '../../constants'
 
 const validateKeys = (keys: string[]) => {
-  for (const key in keys) {
-    if (!Object.values(constants.metadata).includes(key)) {
+  for (const key of keys) {
+    if (!Object.values(METADATA).includes(key)) {
       throw new Error(`Invalid property '${key}' in @Module() decorator.`)
     }
   }
