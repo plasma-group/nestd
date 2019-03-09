@@ -1,0 +1,16 @@
+{
+  "name": "@nestd/core",
+  "version": "0.0.0",
+  "description": "Nestd (@core)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "peerDependencies": {
+    "@nestd/common": "^5.0.0",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^6.0.0"
+  }
+}
