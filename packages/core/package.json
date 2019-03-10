@@ -1,6 +1,6 @@
 {
   "name": "@nestd/core",
-  "version": "0.0.2-alpha.0",
+  "version": "0.0.0-PLACEHOLDER",
   "description": "Nestd (@core)",
   "main": "index.js",
   "author": "",
@@ -8,5 +8,8 @@
   "peerDependencies": {
     "reflect-metadata": "^0.1.12",
     "rxjs": "^6.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
