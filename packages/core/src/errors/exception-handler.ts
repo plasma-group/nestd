@@ -1,5 +1,4 @@
-import { Logger } from '@nestd/common/services/logger.service'
-
+import { Logger } from '../services'
 import { RuntimeException } from './exceptions'
 
 export class ExceptionHandler {

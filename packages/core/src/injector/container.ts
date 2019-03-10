@@ -1,7 +1,5 @@
-import { DynamicModule } from '@nestd/common'
-import { GLOBAL_MODULE_METADATA } from '@nestd/common/constants'
-import { Type } from '@nestd/common/interfaces/type.interface'
-
+import { DynamicModule, Type } from '../interfaces'
+import { GLOBAL_MODULE_METADATA } from '../constants'
 import { Module } from './module'
 import { AppConfig } from '../app-config'
 import { ModuleCompiler } from './compiler'

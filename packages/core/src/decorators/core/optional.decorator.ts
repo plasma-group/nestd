@@ -1,4 +1,4 @@
-import { isUndefined } from '../../utils/shared.utils'
+import { isUndefined } from '../../utils'
 import {
   OPTIONAL_DEPS_METADATA,
   OPTIONAL_PROPERTY_DEPS_METADATA,

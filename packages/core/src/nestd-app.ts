@@ -1,8 +1,6 @@
-import { INestdApp, OnStart, OnStop } from '@nestd/common'
-import { isUndefined } from '@nestd/common/utils/shared.utils'
-import { Logger } from '@nestd/common/services/logger.service'
-import { NestdAppOptions } from '@nestd/common/interfaces/nestd-app-options.interface'
-
+import { INestdApp, OnStart, OnStop, NestdAppOptions } from './interfaces'
+import { isUndefined } from './utils'
+import { Logger } from './services'
 import { MESSAGES } from './constants'
 import { AppConfig } from './app-config'
 import { NestdAppContext } from './nestd-app-context'

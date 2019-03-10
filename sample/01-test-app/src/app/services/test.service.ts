@@ -1,4 +1,4 @@
-import { Service } from '@nestd/common'
+import { Service } from '@nestd/core'
 
 @Service()
 export class TestService {

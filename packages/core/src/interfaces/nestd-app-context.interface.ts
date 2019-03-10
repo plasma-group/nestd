@@ -1,6 +1,6 @@
 import { Abstract } from './abstract.interface'
 import { Type } from './type.interface'
-import { LoggerService } from '../services/logger.service'
+import { LoggerService } from '../services'
 
 export interface INestdAppContext {
   select<T>(module: Type<T>): INestdAppContext

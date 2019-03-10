@@ -1,6 +1,5 @@
-import { isNil, isSymbol } from '@nestd/common/utils/shared.utils'
-import { Type } from '@nestd/common/interfaces/type.interface'
-
+import { isNil, isSymbol } from '../utils'
+import { Type } from '../interfaces'
 import {
   InjectorDependencyContext,
   InjectorDependency,

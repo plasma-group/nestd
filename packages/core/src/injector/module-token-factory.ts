@@ -1,9 +1,7 @@
 import * as hash from 'object-hash'
 import stringify from 'fast-safe-stringify'
-
-import { DynamicModule } from '@nestd/common'
-import { SHARED_MODULE_METADATA } from '@nestd/common/constants'
-import { Type } from '@nestd/common/interfaces/type.interface'
+import { DynamicModule, Type } from '../interfaces'
+import { SHARED_MODULE_METADATA } from '../constants'
 
 export class ModuleTokenFactory {
   public create(

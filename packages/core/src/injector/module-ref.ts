@@ -1,5 +1,4 @@
-import { Type } from '@nestd/common/interfaces/type.interface'
-
+import { Type } from '../interfaces'
 import { NestdContainer } from './container'
 import { Injector } from './injector'
 import { Module } from './module'

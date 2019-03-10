@@ -1,6 +1,4 @@
-import { DynamicModule } from '@nestd/common'
-import { Type } from '@nestd/common/interfaces/type.interface'
-
+import { DynamicModule, Type } from '../interfaces'
 import { ModuleTokenFactory } from './module-token-factory'
 
 export interface ModuleFactory {

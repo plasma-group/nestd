@@ -1,4 +1,4 @@
-import { Service, OnStart } from '@nestd/common'
+import { Service, OnStart } from '@nestd/core'
 import { TestService } from './test.service'
 
 @Service()
@@ -7,7 +7,7 @@ export class OtherService implements OnStart {
     this.testService.test()
   }
 
-  onStart(): void {
+  public onStart(): void {
     console.log('onStart works!')
   }
 }

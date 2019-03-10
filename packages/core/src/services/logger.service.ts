@@ -1,14 +1,14 @@
 import * as clc from 'cli-color'
 import { Service, Optional } from '../decorators'
-import { NestdEnvironment } from '../enums/nestd-environment.enum'
-import { isObject } from '../utils/shared.utils'
+import { NestdEnvironment } from '../enums'
+import { isObject } from '../utils'
 
-declare const process
+declare const process: any
 
 export interface LoggerService {
-  log(message: any, context?: string)
-  error(message: any, trace?: string, context?: string)
-  warn(message: any, context?: string)
+  log(message: any, context?: string): void
+  error(message: any, trace?: string, context?: string): void
+  warn(message: any, context?: string): void
 }
 
 @Service()
@@ -23,7 +23,7 @@ export class Logger implements LoggerService {
     @Optional() private readonly isTimeDiffEnabled = false
   ) {}
 
-  log(message: any, context?: string): void {
+  public log(message: any, context?: string): void {
     const { logger } = Logger
     if (logger === this) {
       Logger.log(message, context || this.context, this.isTimeDiffEnabled)
@@ -32,7 +32,7 @@ export class Logger implements LoggerService {
     logger && logger.log.call(logger, message, context || this.context)
   }
 
-  error(message: any, trace = '', context?: string): void {
+  public error(message: any, trace = '', context?: string): void {
     const { logger } = Logger
     if (logger === this) {
       Logger.error(message, trace, context || this.context)
@@ -41,7 +41,7 @@ export class Logger implements LoggerService {
     logger && logger.error.call(logger, message, trace, context || this.context)
   }
 
-  warn(message: any, context?: string): void {
+  public warn(message: any, context?: string): void {
     const { logger } = Logger
     if (logger === this) {
       Logger.warn(message, context || this.context, this.isTimeDiffEnabled)
@@ -50,19 +50,23 @@ export class Logger implements LoggerService {
     logger && logger.warn.call(logger, message, context || this.context)
   }
 
-  static overrideLogger(logger: LoggerService | boolean): void {
+  public static overrideLogger(logger: LoggerService | boolean): void {
     this.logger = logger ? (logger as LoggerService) : undefined
   }
 
-  static setMode(mode: NestdEnvironment): void {
+  public static setMode(mode: NestdEnvironment): void {
     this.contextEnvironment = mode
   }
 
-  static log(message: any, context = '', isTimeDiffEnabled = true): void {
+  public static log(
+    message: any,
+    context = '',
+    isTimeDiffEnabled = true
+  ): void {
     this.printMessage(message, clc.green, context, isTimeDiffEnabled)
   }
 
-  static error(
+  public static error(
     message: any,
     trace = '',
     context = '',
@@ -72,7 +76,11 @@ export class Logger implements LoggerService {
     this.printStackTrace(trace)
   }
 
-  static warn(message: any, context = '', isTimeDiffEnabled = true): void {
+  public static warn(
+    message: any,
+    context = '',
+    isTimeDiffEnabled = true
+  ): void {
     this.printMessage(message, clc.yellow, context, isTimeDiffEnabled)
   }
 

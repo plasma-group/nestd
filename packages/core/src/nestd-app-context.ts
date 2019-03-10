@@ -1,14 +1,15 @@
 import iterate from 'iterare'
 
-import { Type } from '@nestd/common/interfaces/type.interface'
-import { Abstract } from '@nestd/common/interfaces'
-import { LoggerService, Logger } from '@nestd/common/services/logger.service'
-import { isNil, isUndefined } from '@nestd/common/utils/shared.utils'
-import { INestdAppContext } from '@nestd/common/interfaces/nestd-app-context.interface'
-import { OnModuleInit } from '@nestd/common/interfaces/modules/on-init.interface'
-import { OnModuleDestroy } from '@nestd/common/interfaces/modules/on-destroy.interface'
-import { OnAppBootstrap } from '@nestd/common/interfaces/on-app-bootstrap.interface'
-
+import {
+  Type,
+  Abstract,
+  OnModuleInit,
+  OnModuleDestroy,
+  OnAppBootstrap,
+  INestdAppContext,
+} from './interfaces'
+import { LoggerService, Logger } from './services'
+import { isNil, isUndefined } from './utils'
 import { ModuleTokenFactory } from './injector/module-token-factory'
 import { ContainerScanner } from './injector/container-scanner'
 import { NestdContainer } from './injector/container'

@@ -1,10 +1,11 @@
-import { INestdApp } from '@nestd/common'
-import { isNil, isFunction } from '@nestd/common/utils/shared.utils'
-import { Logger } from '@nestd/common/services/logger.service'
-import { NestdAppContextOptions } from '@nestd/common/interfaces/nestd-app-context-options.interface'
-import { NestdAppOptions } from '@nestd/common/interfaces/nestd-app-options.interface'
-import { INestdAppContext } from '@nestd/common/interfaces/nestd-app-context.interface'
-
+import {
+  INestdApp,
+  NestdAppContextOptions,
+  NestdAppOptions,
+  INestdAppContext,
+} from './interfaces'
+import { isNil, isFunction } from './utils'
+import { Logger } from './services'
 import { AppConfig } from './app-config'
 import { MetadataScanner } from './metadata-scanner'
 import { DependencyScanner } from './dependency-scanner'

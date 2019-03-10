@@ -4,8 +4,12 @@
   "description": "Nestd starter app",
   "main": "index.js",
   "scripts": {
+    "start": "ts-node src/main.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@nestd/core": "0.0.0"
+  }
 }

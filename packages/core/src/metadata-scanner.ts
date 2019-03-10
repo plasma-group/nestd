@@ -1,11 +1,7 @@
 import iterate from 'iterare'
 
-import { Injectable } from '@nestd/common/interfaces'
-import {
-  isNil,
-  isConstructor,
-  isFunction,
-} from '@nestd/common/utils/shared.utils'
+import { Injectable } from './interfaces'
+import { isNil, isConstructor, isFunction } from './utils'
 
 export class MetadataScanner {
   public scanFromPrototype<T extends Injectable, R>(

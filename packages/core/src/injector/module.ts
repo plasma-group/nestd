@@ -4,12 +4,9 @@ import {
   isUndefined,
   isString,
   isSymbol,
-} from '@nestd/common/utils/shared.utils'
-import { Injectable, DynamicModule } from '@nestd/common/interfaces'
-import { randomString } from '@nestd/common/utils/random-string.util'
-import { Type } from '@nestd/common/interfaces/type.interface'
-import { NestdModule } from '@nestd/common/interfaces/modules/nestd-module.interface'
-
+  randomString,
+} from '../utils'
+import { Injectable, DynamicModule, Type, NestdModule } from '../interfaces'
 import { ModuleRef } from './module-ref'
 import { NestdContainer, InstanceWrapper } from './container'
 import { ModulesContainer } from './modules-container'

@@ -1,10 +1,6 @@
-import { ForwardReference, DynamicModule } from '@nestd/common'
-import { Type } from '@nestd/common/interfaces/type.interface'
-import { METADATA, PROVIDERS_METADATA } from '@nestd/common/constants'
-import { Injectable } from '@nestd/common/interfaces'
-import { isNil, isUndefined } from '@nestd/common/utils/shared.utils'
-import { randomString } from '@nestd/common/utils/random-string.util'
-
+import { ForwardReference, DynamicModule, Type, Injectable } from './interfaces'
+import { METADATA, PROVIDERS_METADATA } from './constants'
+import { isNil, isUndefined, randomString } from './utils'
 import { AppConfig } from './app-config'
 import { MetadataScanner } from './metadata-scanner'
 import { NestdContainer } from './injector/container'

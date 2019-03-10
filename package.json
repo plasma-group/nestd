@@ -7,9 +7,11 @@
     "test": "test"
   },
   "scripts": {
-    "check": "prettier --check 'packages/**/*.ts'",
-    "fix": "prettier --write 'packages/**/*.ts'",
-    "compile": "tsc -p ."
+    "lint": "tslint -p tsconfig.json -c tslint.json 'packages/**/*.ts'",
+    "fix": "prettier --write 'packages/**/*.ts' 'index.ts' 'gulpfile.js'",
+    "compile": "tsc -p .",
+    "prebuild:dev": "rm -rf node_modules/@nestd",
+    "build:dev": "gulp build --dist node_modules/@nestd && gulp move"
   },
   "author": "",
   "license": "MIT",
@@ -25,6 +27,11 @@
   "devDependencies": {
     "@types/node": "^11.10.5",
     "@types/object-hash": "^1.2.0",
+    "delete-empty": "^2.0.0",
+    "gulp": "^4.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-typescript": "^5.0.0",
     "prettier": "^1.16.4",
     "tslint": "^5.13.1",
     "tslint-config-prettier": "^1.18.0",

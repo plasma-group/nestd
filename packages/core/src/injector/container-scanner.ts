@@ -1,7 +1,5 @@
-import { Type } from '@nestd/common/interfaces/type.interface'
-import { isFunction } from '@nestd/common/utils/shared.utils'
-import { Abstract } from '@nestd/common/interfaces'
-
+import { Type, Abstract } from '../interfaces'
+import { isFunction } from '../utils'
 import { Module } from './module'
 import { NestdContainer, InstanceWrapper } from './container'
 import { ModulesContainer } from './modules-container'
@@ -45,7 +43,6 @@ export class ContainerScanner {
     const modules = this.container.getModules()
     const initialValue = {
       providers: [],
-      injectables: [],
     }
     const merge = <T = any>(
       initial: Map<string, T> | T[],

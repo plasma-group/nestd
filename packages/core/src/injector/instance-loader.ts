@@ -1,6 +1,5 @@
-import { Injectable } from '@nestd/common/interfaces'
-import { Logger } from '@nestd/common/services/logger.service'
-
+import { Injectable } from '../interfaces'
+import { Logger } from '../services'
 import { NestdContainer } from './container'
 import { Injector } from './injector'
 import { Module } from './module'

@@ -4,16 +4,9 @@ import {
   SELF_DECLARED_DEPS_METADATA,
   PROPERTY_DEPS_METADATA,
   OPTIONAL_PROPERTY_DEPS_METADATA,
-} from '@nestd/common/constants'
-import {
-  isNil,
-  isUndefined,
-  isFunction,
-  isObject,
-} from '@nestd/common/utils/shared.utils'
-import { Injectable } from '@nestd/common/interfaces'
-import { Type } from '@nestd/common/interfaces/type.interface'
-
+} from '../constants'
+import { isNil, isUndefined, isFunction, isObject } from '../utils'
+import { Injectable, Type } from '../interfaces'
 import { InstanceWrapper } from './container'
 import { Module } from './module'
 import {

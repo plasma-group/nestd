@@ -12,5 +12,7 @@
     "ordered-imports": false,
     "no-empty-interface": false,
     "no-empty": false,
+    "array-type": [false],
+    "member-ordering": [false]
   }
 }

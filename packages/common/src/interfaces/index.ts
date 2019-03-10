@@ -1,6 +1,0 @@
-export * from './abstract.interface'
-export * from './injectable.interface'
-export * from './nestd-app.interface'
-export * from './modules/forward-reference.interface'
-export * from './modules/dynamic-module.interface'
-export * from './lifecycle.interface'
