@@ -11,7 +11,11 @@
     "fix": "prettier --write 'packages/**/*.ts' 'index.ts' 'gulpfile.js'",
     "compile": "tsc -p .",
     "prebuild:dev": "rm -rf node_modules/@nestd",
-    "build:dev": "gulp build --dist node_modules/@nestd && gulp move"
+    "clean": "gulp clean:bundle",
+    "build": "npm run clean && gulp build",
+    "build:dev": "gulp build --dist node_modules/@nestd && gulp move",
+    "prerelease": "gulp copy-misc && gulp build --dist node_modules/@nestd",
+    "publish:beta": "npm run prerelease && npm run build && ./node_modules/.bin/lerna publish --dist-tag=beta -m \"chore(@nestd) publish %s release\""
   },
   "author": "",
   "license": "MIT",
@@ -32,6 +36,7 @@
     "gulp-clean": "^0.4.0",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-typescript": "^5.0.0",
+    "lerna": "^3.13.1",
     "prettier": "^1.16.4",
     "tslint": "^5.13.1",
     "tslint-config-prettier": "^1.18.0",
