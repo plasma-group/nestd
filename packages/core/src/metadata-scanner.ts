@@ -27,6 +27,7 @@ export class MetadataScanner {
         })
         .toArray()
     } while (
+      // tslint:disable-next-line:no-conditional-assignment
       (prototype = Reflect.getPrototypeOf(prototype)) &&
       prototype !== Object.prototype
     )

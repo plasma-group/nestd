@@ -13,6 +13,8 @@
     "no-empty-interface": false,
     "no-empty": false,
     "array-type": [false],
-    "member-ordering": [false]
+    "member-ordering": [false],
+    "variable-name": [false],
+    "ban-types": false,
   }
 }
